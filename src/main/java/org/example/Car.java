@@ -13,4 +13,5 @@ public abstract class Car {
         this.tankFullness = tankFullness;
         this.neededFuel = neededFuel;
     }
+
 }

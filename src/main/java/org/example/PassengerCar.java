@@ -18,4 +18,9 @@ public class PassengerCar extends Car{
 
     }
 
+    @Override
+    public String toString(){
+        return "SimpleCar";
+    }
+
 }

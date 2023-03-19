@@ -15,5 +15,9 @@ public class Truck  extends Car{
         super(tankFullness, neededFuel);
         timeToRefuel = 3.0;
     }
+    @Override
+    public String toString(){
+        return "Truck";
+    }
 
 }

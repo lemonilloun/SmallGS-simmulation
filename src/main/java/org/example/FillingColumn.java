@@ -18,4 +18,9 @@ public class FillingColumn {
     public void setCarQue(Car car) {
         this.carQue.add(car);
     }
+
+    public void clearAllCars(){
+        this.carQue.clear();
+    }
 }
+
