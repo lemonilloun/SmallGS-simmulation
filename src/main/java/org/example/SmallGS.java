@@ -3,6 +3,7 @@ import java.util.*;
 
 public class SmallGS  extends GasStation{
 
+    private int dayNum = 1;
     Random rand = new Random();
     private int fulledCars = 0;
     private double totalTime = 0.0;
@@ -96,7 +97,7 @@ public class SmallGS  extends GasStation{
         System.out.println("---------------------------");
         System.out.println("Общее время работы: " + totalTime + " | " + "Машин обслуженно: " + fulledCars);
         System.out.println("Топлива осталось: " + fullness);
-        System.out.println(daytime);
+        System.out.println(daytime + " " + dayNum);
         System.out.println("---------------------------\n");
     }
 
@@ -127,5 +128,9 @@ public class SmallGS  extends GasStation{
 
     public double getFullness(){
         return this.fullness;
+    }
+
+    public void setDayNum(int dayNum) {
+        this.dayNum = dayNum;
     }
 }

@@ -14,6 +14,7 @@ public class Main {
             double timer = 0.0;
             double tuner = 0.0;
             int carRandomizer = 5;
+            int dayNum = 1;
             while (timer < 550.0){
                 station.carFactory(rand.nextInt(carRandomizer));
                 timer += station.working();
@@ -26,6 +27,8 @@ public class Main {
                         station.colFactory(1);
                     } else{
                         station.setDaytime("Day");
+                        dayNum ++;
+                        ((SmallGS) station).setDayNum(dayNum);
                         carRandomizer = 7;
                         station.colFactory(3);
                     }
