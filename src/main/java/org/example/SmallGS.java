@@ -9,9 +9,12 @@ public class SmallGS  extends GasStation{
     private List<FillingColumn> fillingColumns;
     private List<Car> carQueue;
 
+    private double maxiVolume;
+
 
     public SmallGS(String daytime, double fullness) {
         super(daytime, fullness);
+        maxiVolume = fullness;
     }
 
     @Override
@@ -42,7 +45,7 @@ public class SmallGS  extends GasStation{
     }
 
     @Override
-    protected void working() {
+    protected double working() {
         // распределение машин в очереди по колонкам
         System.out.println("\nИнформация по колонкам\n");
         System.out.println( " Col " + "|" + " Num " + "|" + " Queue");
@@ -81,7 +84,10 @@ public class SmallGS  extends GasStation{
             col.clearAllCars();
         }
 
-        totalTime += timePassed;
+        double waitingTime = rand.nextDouble(7.0);
+
+        totalTime += timePassed + waitingTime;
+        return timePassed + waitingTime;
     }
 
 
@@ -90,7 +96,17 @@ public class SmallGS  extends GasStation{
         System.out.println("---------------------------");
         System.out.println("Общее время работы: " + totalTime + " | " + "Машин обслуженно: " + fulledCars);
         System.out.println("Топлива осталось: " + fullness);
-        System.out.println("---------------------------");
+        System.out.println(daytime);
+        System.out.println("---------------------------\n");
+    }
+
+    @Override
+    protected void refuelligStation() {
+        this.fullness = maxiVolume;
+        System.out.println("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+        System.out.println("Приехала машина с топливом....");
+        System.out.println("Баки с топливом пополнены");
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
     }
 
     public void setFillingColumns(List<FillingColumn> fillingColumns) {
@@ -99,6 +115,14 @@ public class SmallGS  extends GasStation{
 
     public void setCarQueue(List<Car> carQueue) {
         this.carQueue = carQueue;
+    }
+
+    public double getTotalTime() {
+        return totalTime;
+    }
+
+    public void setTotalTime(double totalTime) {
+        this.totalTime = totalTime;
     }
 
     public double getFullness(){

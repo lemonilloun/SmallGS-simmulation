@@ -7,13 +7,14 @@ public class Truck  extends Car{
     protected double fuelling() {
         if (tankFullness + neededFuel <= tankVolume){
             return neededFuel;
+        } else{
+            return tankVolume - tankFullness;
         }
-        return 0.0;
     }
 
     public Truck(double tankFullness, double neededFuel) {
         super(tankFullness, neededFuel);
-        timeToRefuel = 3.0;
+        timeToRefuel = (tankVolume - tankFullness)/20.0;
     }
     @Override
     public String toString(){

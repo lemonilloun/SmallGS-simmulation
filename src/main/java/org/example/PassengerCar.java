@@ -14,7 +14,7 @@ public class PassengerCar extends Car{
 
     public PassengerCar(double tankFullness, double neededFuel) {
         super(tankFullness, neededFuel);
-        timeToRefuel = 2.0;
+        timeToRefuel = (tankVolume - tankFullness)/20.0;
 
     }
 
