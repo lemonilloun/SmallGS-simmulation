@@ -10,7 +10,7 @@ public class Main {
 
 
         Thread carGenerator = new Thread(() -> {
-            double x = ((SmallGS) station).getFullness();
+            double x;
             double timer = 0.0;
             double tuner = 0.0;
             int carRandomizer = 5;

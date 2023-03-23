@@ -6,9 +6,16 @@ import java.util.List;
 public class FillingColumn {
     private List<Car> carQue = new ArrayList<>();
 
-    public double filling(Car car, double fullness){
-        fullness -= car.fuelling();
+    public double filling(Car car){
         return car.getTimeToRefuel();
+    }
+
+    public double meanTime(List<Car> cars){
+        double mean = 0.0;
+        for (Car x: cars) {
+            mean += x.getTimeToRefuel();
+        }
+        return mean;
     }
 
     public List<Car> getCarQue() {

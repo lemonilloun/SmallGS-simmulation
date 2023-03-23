@@ -71,12 +71,13 @@ public class SmallGS  extends GasStation{
         double timePassed = 0.0;
 
         int n = 0;
+        // работа каждой колонки со своей очередью
         for (FillingColumn col: fillingColumns) {
             n+=1;
             System.out.printf(" %-3d | %-3d | %-10s\n", n, col.getCarQue().size(), col.getCarQue());
             List<Car> cur = col.getCarQue();
             for (Car car: cur) {
-                timePassed += col.filling(car, fullness);
+                timePassed += col.filling(car);
                 if (fullness < car.fuelling()){
                     System.out.println("Out of fuel, waiting for a new gas");
                 }
@@ -84,6 +85,8 @@ public class SmallGS  extends GasStation{
             }
             col.clearAllCars();
         }
+
+        System.out.println("Среднее время ожидания: " + timePassed/fillingColumns.size());
 
         double waitingTime = rand.nextDouble(7.0);
 
@@ -94,11 +97,11 @@ public class SmallGS  extends GasStation{
 
     @Override
     protected void info() {
-        System.out.println("---------------------------");
+        System.out.println("-----------------------------------------------------------------------------");
         System.out.println("Общее время работы: " + totalTime + " | " + "Машин обслуженно: " + fulledCars);
         System.out.println("Топлива осталось: " + fullness);
         System.out.println(daytime + " " + dayNum);
-        System.out.println("---------------------------\n");
+        System.out.println("------------------------------------------------------------------------------\n");
     }
 
     @Override
