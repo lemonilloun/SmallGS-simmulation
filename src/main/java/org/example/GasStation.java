@@ -4,6 +4,7 @@ import java.util.List;
 
 public abstract class GasStation {
     protected String daytime;
+    protected double meanTimeOfWaiting;
 
     public void setDaytime(String daytime) {
         this.daytime = daytime;
@@ -22,6 +23,14 @@ public abstract class GasStation {
     public GasStation(String daytime, double fullness) {
         this.daytime = daytime;
         this.fullness = fullness;
+    }
+
+    public double getMeanTimeOfWaiting() {
+        return meanTimeOfWaiting;
+    }
+
+    public void setMeanTimeOfWaiting(double meanTimeOfWaiting) {
+        this.meanTimeOfWaiting = meanTimeOfWaiting;
     }
 
     protected abstract void colFactory(int num);

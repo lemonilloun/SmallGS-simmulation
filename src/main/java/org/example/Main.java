@@ -5,7 +5,7 @@ import java.util.Random;
 public class Main {
     public static void main(String[] args) {
         GasStation station = new SmallGS("Day", 1000);
-        station.colFactory(2);
+        station.colFactory(1);
         Random rand = new Random();
 
 
@@ -14,6 +14,7 @@ public class Main {
             double timer = 0.0;
             double tuner = 0.0;
             int carRandomizer = 5;
+            int colRandomizer = 1;
             int dayNum = 1;
             while (timer < 550.0){
                 station.carFactory(rand.nextInt(carRandomizer));
@@ -24,37 +25,36 @@ public class Main {
                     if(station.getDaytime() == "Day"){
                         station.setDaytime("Night");
                         carRandomizer = 3;
-                        station.colFactory(1);
                     } else{
                         station.setDaytime("Day");
                         dayNum ++;
                         ((SmallGS) station).setDayNum(dayNum);
                         carRandomizer = 7;
-                        station.colFactory(3);
                     }
                     tuner += 60.0;
                 }
 
                 try {
-                    Thread.sleep(4000);
+                    Thread.sleep(1500);
                     station.info();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
 
-                if(timer > 120){
-                    station.colFactory(3);
-                }
-
                 if(x < 400.0) {
                     try {
-                        Thread.sleep(rand.nextInt(15000) + 1000);
+                        Thread.sleep(1000);
                         station.refuelligStation();
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                 }
-
+                if(station.getMeanTimeOfWaiting() >= 5.0){
+                    colRandomizer ++;
+                } else if (station.getMeanTimeOfWaiting() < 1.0 && colRandomizer > 1) {
+                    colRandomizer --;
+                }
+                station.colFactory(colRandomizer);
             }
         });
         carGenerator.start();

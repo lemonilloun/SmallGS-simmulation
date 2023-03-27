@@ -6,6 +6,7 @@ public class SmallGS  extends GasStation{
     private int dayNum = 1;
     Random rand = new Random();
     private int fulledCars = 0;
+
     private double totalTime = 0.0;
     private List<FillingColumn> fillingColumns;
     private List<Car> carQueue;
@@ -16,6 +17,7 @@ public class SmallGS  extends GasStation{
     public SmallGS(String daytime, double fullness) {
         super(daytime, fullness);
         maxiVolume = fullness;
+        meanTimeOfWaiting = 0.0;
     }
 
     @Override
@@ -86,7 +88,12 @@ public class SmallGS  extends GasStation{
             col.clearAllCars();
         }
 
-        System.out.println("Среднее время ожидания: " + timePassed/fillingColumns.size());
+
+        meanTimeOfWaiting = timePassed/fillingColumns.size();
+        if(meanTimeOfWaiting >= 1.0){
+            setMeanTimeOfWaiting(meanTimeOfWaiting);
+        }
+        System.out.println("Среднее время ожидания: " + meanTimeOfWaiting);
 
         double waitingTime = rand.nextDouble(7.0);
 
