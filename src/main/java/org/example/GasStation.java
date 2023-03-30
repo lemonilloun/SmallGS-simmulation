@@ -16,6 +16,7 @@ public abstract class GasStation {
 
     protected double fullness;
     protected abstract double working();
+    protected abstract void activate(int watchTime);
     protected abstract void info();
 
     protected abstract void refuelligStation();
