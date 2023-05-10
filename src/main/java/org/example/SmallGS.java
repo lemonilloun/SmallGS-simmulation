@@ -6,7 +6,6 @@ public class SmallGS  extends GasStation{
     private int dayNum = 1;
     Random rand = new Random();
     private int fulledCars = 0;
-
     private double totalTime = 0.0;
     private List<FillingColumn> fillingColumns;
     private List<Car> carQueue;
@@ -60,6 +59,7 @@ public class SmallGS  extends GasStation{
                 for (FillingColumn col : fillingColumns) {
                     if (col.getCarQue().size() < maxi_car) {
                         col.setCarQue(car);
+
                         done = true;
                         fulledCars += 1;
                         break;
@@ -71,7 +71,6 @@ public class SmallGS  extends GasStation{
 
 
         double timePassed = 0.0;
-
         int n = 0;
         // работа каждой колонки со своей очередью
         for (FillingColumn col: fillingColumns) {
@@ -94,16 +93,67 @@ public class SmallGS  extends GasStation{
             setMeanTimeOfWaiting(meanTimeOfWaiting);
         }
         System.out.println("Среднее время ожидания: " + meanTimeOfWaiting);
-
         double waitingTime = rand.nextDouble(7.0);
 
         totalTime += timePassed + waitingTime;
         return timePassed + waitingTime;
     }
 
+    @Override
+    protected void activate(int watchTime) {
+        Thread Station = new Thread(() -> {
+            double x;
+            double timer = 0.0;
+            double tuner = 0.0;
+            double passed;
+            int carRandomizer = 5;
+            int colRandomizer = 1;
+            int dayNum = 1;
+            while (timer < 550.0){
+                carFactory(rand.nextInt(carRandomizer));
+                passed = working();
+                try {
+                    Thread.sleep(watchTime * (int)passed);
+                    timer += passed;
+                    info();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                x = getFullness();
+
+
+                if(timer >= (tuner + 60.0)){
+                    if(getDaytime() == "Day"){
+                        setDaytime("Night");
+                        carRandomizer = 3;
+                    } else{
+                        setDaytime("Day");
+                        dayNum ++;
+                        setDayNum(dayNum);
+                        carRandomizer = 7 + (dayNum - 1);
+                    }
+                    tuner += 60.0;
+                }
+
+
+                if(x < 300.0) {refuelligStation();}
+
+                if(getMeanTimeOfWaiting() >= 4.0){
+                    colRandomizer ++;
+                } else if (getMeanTimeOfWaiting() < 1.0 && colRandomizer > 1) {
+                    colRandomizer --;
+                }
+                colFactory(colRandomizer);
+            }
+        });
+        Station.start();
+
+    }
+
 
     @Override
     protected void info() {
+        int n = 0;
         System.out.println("-----------------------------------------------------------------------------");
         System.out.println("Общее время работы: " + totalTime + " | " + "Машин обслуженно: " + fulledCars);
         System.out.println("Топлива осталось: " + fullness);
